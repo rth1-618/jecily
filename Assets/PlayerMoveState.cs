@@ -6,10 +6,10 @@ public class PlayerMoveState : EntityState
     {
     }
 
-    public override void Update()
+    public override void Update() 
     {
         base.Update();
-        if(Input.GetKeyDown(KeyCode.G))
+        if(player.moveInput.x == 0)
             entityStateMachine.changeState(player.idleState);
     }
 }
