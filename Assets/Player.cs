@@ -43,6 +43,6 @@ public class Player : MonoBehaviour
 
     public void Update()
     {
-        playerStateMachine.currentState.Update();
+        playerStateMachine.UpdateActiveState();
     }
 }
