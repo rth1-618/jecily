@@ -13,7 +13,7 @@ public class PlayerIdleState : EntityState
 
         if (player.moveInput.x != 0)
         {
-            entityStateMachine.changeState(player.moveState);
+            entityStateMachine.ChangeState(player.moveState);
         }
     }
 }

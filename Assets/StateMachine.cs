@@ -10,7 +10,7 @@ public class StateMachine
         currentState.Enter();
     }
 
-    public void changeState(EntityState newState) 
+    public void ChangeState(EntityState newState) 
     {
         currentState.Exit();
         currentState = newState;
