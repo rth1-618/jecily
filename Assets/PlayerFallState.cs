@@ -12,5 +12,8 @@ public class PlayerFallState : PlayerAiredState
         // detect ground, if ground transistion to idle state
         if (player.isGroundDetected)
             entityStateMachine.ChangeState(player.idleState);
+
+        if(player.isWallDetected)
+            entityStateMachine.ChangeState(player.wallSlideState);
     }
 }
