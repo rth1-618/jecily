@@ -17,6 +17,7 @@ public class Player : MonoBehaviour
     public PlayerWallSlideState wallSlideState { get; private set; }
 
     public PlayerWallJumpState wallJumpState { get; private set; }
+    public PlayerDashState dashState { get; private set; }
 
 
 
@@ -30,6 +31,10 @@ public class Player : MonoBehaviour
     public bool isFacingRight = true;
     public Vector2 moveInput {  get; private set; }
     public Vector2 wallJumpForce;
+
+    [Space]
+    public float dashDuration = 0.25f;
+    public float dashSpeed = 20;
 
     [Header("Collision Detect")]
     [SerializeField] private float groundCheckDistance;
@@ -55,6 +60,7 @@ public class Player : MonoBehaviour
         fallState = new PlayerFallState(this, playerStateMachine, "jumpFall");
         wallSlideState = new PlayerWallSlideState(this, playerStateMachine, "wallSlide");
         wallJumpState = new PlayerWallJumpState(this, playerStateMachine, "jumpFall");
+        dashState = new PlayerDashState(this, playerStateMachine, "dash");
     }
 
     private void OnEnable()

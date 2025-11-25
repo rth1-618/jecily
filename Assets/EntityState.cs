@@ -11,6 +11,7 @@ public abstract class EntityState
     protected Rigidbody2D rb;
     protected PlayerInputSet input;
 
+    protected float stateTimer;
     public EntityState(Player player, StateMachine stateMachine, string animBoolName)
     {
         this.player = player;
@@ -29,8 +30,12 @@ public abstract class EntityState
 
     public virtual void Update()
     {
+        stateTimer -= Time.deltaTime;
         // running logic of the state
         anim.SetFloat("yVelocity",rb.linearVelocity.y);
+
+        if (input.Player.Dash.WasPressedThisFrame())
+            entityStateMachine.ChangeState(player.dashState);
 
     }
 
