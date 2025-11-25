@@ -14,10 +14,12 @@ public class Player : MonoBehaviour
     public Vector2 moveInput {  get; private set; }
 
     [Header("Movement Details")]
-    public float moveSpeed;
+    public float moveSpeed = 8f;
+    public bool isFacingRight = true;
 
     private void Awake()
     {
+        //GetComponents BEFORE setting states for them to be accessible inside State
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
 
@@ -61,5 +63,26 @@ public class Player : MonoBehaviour
     public void SetVelocity(float xVelocity, float yVelocity)
     {
         rb.linearVelocity = new Vector2(xVelocity, yVelocity);
+        HandleFlip();
+    }
+
+    private bool isMovingRight()
+    {
+        if (rb.linearVelocity.x == 0)
+            return isFacingRight;
+        return rb.linearVelocity.x > 0;
+    }
+    public void Flip()
+    {
+        transform.Rotate(0, 180, 0);
+        isFacingRight = !isFacingRight;
+    }
+
+    public void HandleFlip()
+    {
+        if (isMovingRight() && !isFacingRight)
+            Flip();
+        else if (!isMovingRight() && isFacingRight)
+            Flip();
     }
 }
