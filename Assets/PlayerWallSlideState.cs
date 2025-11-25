@@ -8,7 +8,12 @@ public class PlayerWallSlideState : EntityState
     public override void Update()
     {
         base.Update();
-        HandleSlide();
+        HandleWallSlide();
+
+        if (input.Player.Jump.WasPressedThisFrame())
+        {
+            entityStateMachine.ChangeState(player.wallJumpState);
+        }
 
         if (!player.isWallDetected)
             entityStateMachine.ChangeState(player.fallState);
@@ -21,7 +26,7 @@ public class PlayerWallSlideState : EntityState
 
     }
 
-    private void HandleSlide()
+    private void HandleWallSlide()
     {
         if (player.moveInput.y < 0)
             player.SetVelocity(player.moveInput.x, rb.linearVelocity.y);

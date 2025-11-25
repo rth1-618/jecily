@@ -16,6 +16,8 @@ public class Player : MonoBehaviour
     public PlayerFallState fallState { get; private set; }
     public PlayerWallSlideState wallSlideState { get; private set; }
 
+    public PlayerWallJumpState wallJumpState { get; private set; }
+
 
 
     [Header("Movement Details")]
@@ -25,8 +27,9 @@ public class Player : MonoBehaviour
     public float inAirDamper = 0.7f;
     [Range(0, 1)]
     public float wallSlideDamper = 0.3f;
-    private bool isFacingRight = true;
+    public bool isFacingRight = true;
     public Vector2 moveInput {  get; private set; }
+    public Vector2 wallJumpForce;
 
     [Header("Collision Detect")]
     [SerializeField] private float groundCheckDistance;
@@ -51,6 +54,7 @@ public class Player : MonoBehaviour
         jumpState = new PlayerJumpState(this, playerStateMachine, "jumpFall");
         fallState = new PlayerFallState(this, playerStateMachine, "jumpFall");
         wallSlideState = new PlayerWallSlideState(this, playerStateMachine, "wallSlide");
+        wallJumpState = new PlayerWallJumpState(this, playerStateMachine, "jumpFall");
     }
 
     private void OnEnable()
@@ -111,12 +115,17 @@ public class Player : MonoBehaviour
     private void HandleCollisionDetection()
     {
         isGroundDetected = Physics2D.Raycast(transform.position, Vector2.down, groundCheckDistance, whatIsGround);
-        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right * (isFacingRight ? 1 : -1), wallCheckDistance, whatIsGround);
+        isWallDetected = Physics2D.Raycast(transform.position, Vector2.right * FacingRightMultiplier(), wallCheckDistance, whatIsGround);
+    }
+
+    public int FacingRightMultiplier()
+    {
+        return isFacingRight ? 1 : -1;
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(transform.position, transform.position + new Vector3(0, -groundCheckDistance,0));
-        Gizmos.DrawLine(transform.position, transform.position + new Vector3(wallCheckDistance * (isFacingRight ? 1 : -1), 0));
+        Gizmos.DrawLine(transform.position, transform.position + new Vector3(wallCheckDistance * FacingRightMultiplier(), 0));
     }
 }

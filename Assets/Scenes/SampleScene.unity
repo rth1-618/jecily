@@ -880,7 +880,7 @@ Transform:
   m_GameObject: {fileID: 1947248321}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.73, y: 3.48, z: 0}
+  m_LocalPosition: {x: 3.58, y: 2.41, z: 0}
   m_LocalScale: {x: 3.7286277, y: 6.5898, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -937,6 +937,8 @@ MonoBehaviour:
   jumpForce: 12
   inAirDamper: 0.7
   wallSlideDamper: 0.3
+  isFacingRight: 1
+  wallJumpForce: {x: 6, y: 12}
   groundCheckDistance: 1.4
   wallCheckDistance: 0.4
   whatIsGround:
