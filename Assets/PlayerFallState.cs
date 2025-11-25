@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerFallState : EntityState
+public class PlayerFallState : PlayerAiredState
 {
     public PlayerFallState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
@@ -10,5 +10,7 @@ public class PlayerFallState : EntityState
     {
         base.Update();
         // detect ground, if ground transistion to idle state
+        if (player.isGroundDetected)
+            entityStateMachine.ChangeState(player.idleState);
     }
 }
