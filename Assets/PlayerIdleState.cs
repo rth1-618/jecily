@@ -16,6 +16,9 @@ public class PlayerIdleState : PlayerGroundedState
     {
         base.Update();
 
+        if (player.moveInput.x == player.FacingRightMultiplier() && player.isWallDetected)
+            return; //close guard
+
         if (player.moveInput.x != 0)
             entityStateMachine.ChangeState(player.moveState);
 

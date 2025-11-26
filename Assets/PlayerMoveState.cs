@@ -9,7 +9,7 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Update() 
     {
         base.Update();
-        if(player.moveInput.x == 0)
+        if(player.moveInput.x == 0 || player.isWallDetected)
             entityStateMachine.ChangeState(player.idleState);
 
         player.SetVelocity(player.moveInput.x * player.moveSpeed, rb.linearVelocity.y);
