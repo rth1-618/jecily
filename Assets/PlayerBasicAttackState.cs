@@ -27,6 +27,7 @@ public class PlayerBasicAttackState : EntityState
         comboAttackQueued = false;
         ResetComboIndexIfNeeded();
 
+        //change attackdir if input presssed during attack
         attackDirection = player.moveInput.x != 0 ? (int)player.moveInput.x : player.FacingRightMultiplier();
 
         anim.SetInteger("basicAttackIndex", comboIndex);

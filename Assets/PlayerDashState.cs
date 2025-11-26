@@ -15,7 +15,7 @@ public class PlayerDashState : EntityState
         stateTimer = player.dashDuration;
         originalGravityScale = rb.gravityScale;
         rb.gravityScale = 0;
-        dashDirection = player.FacingRightMultiplier();
+        dashDirection = player.moveInput.x != 0 ? (int)player.moveInput.x : player.FacingRightMultiplier();
     }
 
     public override void Update()
