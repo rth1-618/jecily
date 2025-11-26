@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class PlayerJumpState : PlayerAiredState
 {
     public PlayerJumpState(Player player, StateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
@@ -17,7 +15,8 @@ public class PlayerJumpState : PlayerAiredState
     {
         base.Update();
 
-        if (isFalling())
+        //only transfer to fall state if not in jumpAttackState
+        if (isFalling() && entityStateMachine.currentState != player.jumpAttackState)
             entityStateMachine.ChangeState(player.fallState);
 
     }

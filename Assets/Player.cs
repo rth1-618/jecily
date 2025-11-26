@@ -20,9 +20,11 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState wallJumpState { get; private set; }
     public PlayerDashState dashState { get; private set; }
     public PlayerBasicAttackState basicAttackState { get; private set; }
+    public PlayerJumpAttackState jumpAttackState { get; private set; }
 
     [Header("Attack Details")]
     public Vector2[] attackVelocity;
+    public Vector2 jumpAttackVelocity;
     public float attackVelocityDuration = 0.1f;
     public float comboResetTime = 1;
     private Coroutine queuedAttackCo;
@@ -69,6 +71,7 @@ public class Player : MonoBehaviour
         wallJumpState = new PlayerWallJumpState(this, playerStateMachine, "jumpFall");
         dashState = new PlayerDashState(this, playerStateMachine, "dash");
         basicAttackState = new PlayerBasicAttackState(this, playerStateMachine, "basicAttack");
+        jumpAttackState = new PlayerJumpAttackState(this, playerStateMachine, "jumpAttack");
     }
 
     private void OnEnable()
