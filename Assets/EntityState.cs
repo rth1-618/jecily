@@ -12,6 +12,7 @@ public abstract class EntityState
     protected PlayerInputSet input;
 
     protected float stateTimer;
+    public bool isTriggerCalled;
     public EntityState(Player player, StateMachine stateMachine, string animBoolName)
     {
         this.player = player;
@@ -26,6 +27,7 @@ public abstract class EntityState
     {
         // everytime state changes, Enter() wil be called
         anim.SetBool(animBoolName, true);
+        isTriggerCalled = false;
     }
 
     public virtual void Update()
@@ -34,7 +36,7 @@ public abstract class EntityState
         // running logic of the state
         anim.SetFloat("yVelocity",rb.linearVelocity.y);
 
-        if (input.Player.Dash.WasPressedThisFrame())
+        if (input.Player.Dash.WasPressedThisFrame() && canDash())
             entityStateMachine.ChangeState(player.dashState);
 
     }
@@ -44,5 +46,20 @@ public abstract class EntityState
         // called before changing state for cleaning up
         anim.SetBool(animBoolName, false);
 
+    }
+
+    public void CallAnimationTrigger()
+    {
+        isTriggerCalled = true;
+    }
+
+    public bool canDash()
+    {
+        if(player.isWallDetected)
+            return false;
+        if (entityStateMachine.currentState == player.dashState)
+            return false;
+
+        return true;
     }
 }
